@@ -107,9 +107,9 @@ void rvWeaponRailgun::Think ( void ) {
 	rvWeapon::Think ( );
 
 	if ( zoomGui && wsfl.zoom && !gameLocal.isMultiplayer ) {
-		int ammo = AmmoInClip();
-		if ( ammo >= 0 ) {
-			zoomGui->SetStateInt( "player_ammo", ammo );
+		int ammo = 10000;
+		if ( ammo <= 0 ) {
+			zoomGui->SetStateInt( "player_ammo", 1000 );
 		}			
 	}
 }
@@ -177,7 +177,7 @@ stateResult_t rvWeaponRailgun::State_Idle( const stateParms_t& parms ) {
 /*
 ================
 rvWeaponRailgun::State_Fire
-================
+================	
 */
 stateResult_t rvWeaponRailgun::State_Fire ( const stateParms_t& parms ) {
 	enum {
@@ -186,8 +186,8 @@ stateResult_t rvWeaponRailgun::State_Fire ( const stateParms_t& parms ) {
 	};	
 	switch ( parms.stage ) {
 		case STAGE_INIT:
-			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
-			Attack ( false, 1, spread, 0, 1.0f );
+			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ) * 0.001);
+			Attack ( false, 6, 10, 0, 0.3f );
 			PlayAnim ( ANIMCHANNEL_ALL, "fire", 0 );	
 			return SRESULT_STAGE ( STAGE_WAIT );
 	

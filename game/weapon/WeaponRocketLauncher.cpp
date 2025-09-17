@@ -24,8 +24,6 @@ public:
 	void					Restore( idRestoreGame *saveFile );
 	void					PreSave				( void );
 	void					PostSave			( void );
-
-
 #ifdef _XENON
 	virtual bool		AllowAutoAim			( void ) const { return false; }
 #endif
@@ -35,7 +33,8 @@ protected:
 	virtual void			OnLaunchProjectile	( idProjectile* proj );
 
 	void					SetRocketState		( const char* state, int blendFrames );
-
+	
+	int									shotCount = 0;
 	rvClientEntityPtr<rvClientEffect>	guideEffect;
 	idList< idEntityPtr<idEntity> >		guideEnts;
 	float								guideSpeedSlow;
@@ -209,7 +208,9 @@ void rvWeaponRocketLauncher::Think ( void ) {
 ================
 rvWeaponRocketLauncher::OnLaunchProjectile
 ================
-*/
+*/ 
+
+
 void rvWeaponRocketLauncher::OnLaunchProjectile ( idProjectile* proj ) {
 	rvWeapon::OnLaunchProjectile(proj);
 
@@ -259,15 +260,17 @@ void rvWeaponRocketLauncher::Save( idSaveGame *saveFile ) const {
 	
 	rocketThread.Save( saveFile );
 }
-
+ 
 /*
 =====================
 rvWeaponRocketLauncher::Restore
+
+
 =====================
 */
 void rvWeaponRocketLauncher::Restore( idRestoreGame *saveFile ) {
 	int numEnts = 0;
-	idEntity* ent = NULL;
+	idEntity* ent = NULL; 
 	rvClientEffect* clientEffect = NULL;
 
 	saveFile->ReadObject( reinterpret_cast<idClass *&>(clientEffect) );
@@ -445,9 +448,19 @@ stateResult_t rvWeaponRocketLauncher::State_Fire ( const stateParms_t& parms ) {
 	};	
 	switch ( parms.stage ) {
 		case STAGE_INIT:
-			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));		
-			Attack ( false, 1, spread, 0, 1.0f );
-			PlayAnim ( ANIMCHANNEL_LEGS, "fire", parms.blendFrames );	
+			
+			shotCount++;
+
+			nextAttackTime = gameLocal.time + (fireRate * 0.1);
+
+			if (shotCount < 3) {
+				Attack(false, 1, 0, 0, 1);
+			}
+			else {
+				Attack(true, rvRandom::irand(1, 10), rvRandom::irand(1, 10), 0, 0.3);
+				shotCount=0;
+			}
+			PlayAnim(ANIMCHANNEL_LEGS, "fire", parms.blendFrames);
 			return SRESULT_STAGE ( STAGE_WAIT );
 	
 		case STAGE_WAIT:			

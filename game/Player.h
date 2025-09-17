@@ -229,13 +229,13 @@ public:
 
 	// save games
 	void					Save( idSaveGame *savefile ) const;					// archives object for save game file
-	void					Restore( idRestoreGame *savefile );					// unarchives object from save game file
-
+	void					Restore( idRestoreGame *savefile );					// unarchives object from save game file	void					
 	void					Clear( void );
 	void					GivePowerUp( idPlayer* player, int powerup, int msec );
 	void					ClearPowerUps( void );
 	void					GetPersistantData( idDict &dict );
 	void					RestoreInventory( idPlayer *owner, const idDict &dict );
+	void					healPlayer(idPlayer *owner, int num);
 	bool					Give( idPlayer *owner, const idDict &spawnArgs, const char *statname, const char *value, int *idealWeapon, bool updateHud, bool dropped = false, bool checkOnly = false );
 	void					Drop( const idDict &spawnArgs, const char *weapon_classname, int weapon_index );
 	int						AmmoIndexForAmmoClass( const char *ammo_classname ) const;

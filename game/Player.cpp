@@ -831,6 +831,10 @@ idInventory::Give
 If checkOnly is true, check only for possibility of adding to inventory, don't actually add
 ==============
 */
+void idInventory::healPlayer(idPlayer *owner, int num){
+	owner->health += num;
+}
+
 bool idInventory::Give( idPlayer *owner, const idDict &spawnArgs, const char *statname, const char *value, int *idealWeapon, bool updateHud, bool dropped, bool checkOnly ) {
 	int						i;
 	const char				*pos;
@@ -11183,6 +11187,8 @@ idPlayer::Event_SetHealth
 void idPlayer::Event_SetHealth( float newHealth ) {
 	health = idMath::ClampInt( 1 , inventory.maxHealth, newHealth );
 }
+
+
 /*
 =============
 idPlayer::Event_SetArmor
@@ -14076,5 +14082,8 @@ int idPlayer::CanSelectWeapon(const char* weaponName)
 
 	return weaponNum;
 }
+
+
+
 
 // RITUAL END
