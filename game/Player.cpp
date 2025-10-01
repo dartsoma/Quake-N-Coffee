@@ -195,6 +195,119 @@ const idVec4 defaultHitscanTint( 0.4f, 1.0f, 0.4f, 1.0f );
 idInventory::Clear
 ==============
 */
+
+// COFFEE MOD
+ 
+char* idPlayer::blendToString(blendType type) {
+	switch (type) {
+	case idPlayer::BASICBREW:
+		return "Basic Brew";
+	case idPlayer::MARTINEZMIX:
+		return "Martinez Mix";
+	case idPlayer::GUTGORE:
+		return "Gut Gore";
+	case idPlayer::MULTWOPLY:
+		return "Multwoply";
+	case idPlayer::REBLENDER:
+		return "Reblender";
+	case idPlayer::EMPTY:
+		return "Empty";
+	default:
+		return "Invalid Blend Type";
+	}
+}
+
+void idPlayer::drink(brew curr) {
+
+	return;
+}
+
+void idPlayer::addBean(int type, int purity, int slot) {
+	bean newBean = nullBean;
+
+
+	if (type > -1 && type < 5) {
+
+		// Setters
+		newBean.type = static_cast<blendType>(type);
+		newBean.purity = purity;
+	}
+
+	beInventory[slot] = newBean;
+
+	return;
+
+}
+
+void idPlayer::addBrew(int base, int hybrid, int purity) {
+
+	brew newBrew = emptyCup;
+
+	if (base > 4 || hybrid > 4) {
+		return; //  Out of bounds for BlendType
+	}
+	else {
+		if (base > -1) { // base cannot be 0 else the cup is considered empty
+
+			blendType baseType = static_cast<blendType>(base);
+			bean baseBean = { baseType,purity };
+
+			if (hybrid > -1) {
+				newBrew = { baseBean, nullBean, maxCups - maxCups / 3 };
+			}
+			else {
+				bean hypBean = { static_cast<blendType>(base),purity };
+				newBrew = { baseBean, hypBean, maxCups };
+			}
+
+		}
+	}
+
+	for (int c; c < 10; c++) {
+		if (brInventory[c].base.type == -1) {
+			brInventory[c] = newBrew;
+		}
+		else {
+			*currDrink = newBrew;
+		}
+	}
+	return;
+}
+void idPlayer::emptyBeans() {
+	for (int b; b < 10; b++) {
+		beInventory[b] = nullBean;
+	}
+	return;
+}
+void idPlayer::emptyCups() {
+	for (int c; c < 3; c++) {
+		brInventory[c] = emptyCup;
+	}
+	return;
+}
+
+void idPlayer::previousCup() {
+
+	if (currDrink == brInventory) {
+		currDrink = brInventory + 2;
+	}
+	else {
+		currDrink--;
+	}
+
+}
+void idPlayer::nextCup() {
+
+	if (currDrink == brInventory + 2) {
+		currDrink = brInventory;
+	}
+	else {
+		currDrink++;
+	}
+}
+
+
+
 void idInventory::Clear( void ) {
 	maxHealth			= 0;
 	weapons				= 0;

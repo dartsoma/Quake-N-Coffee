@@ -192,6 +192,7 @@ typedef enum {
 
 const int	ASYNC_PLAYER_TOURNEY_STATUS_BITS = idMath::BitsForInteger( PTS_NUM_STATES );
 
+
 class idInventory {
 public:
 	int						maxHealth;
@@ -329,6 +330,75 @@ public:
 		bool		noFallingDamage :1;
 	} pfl;
 		
+
+
+
+
+
+	
+
+
+
+	/*
+
+
+COFFEE MOD
+
+
+
+	*/
+
+
+
+	typedef enum {
+		EMPTY = -1,
+		BASICBREW = 0,
+		MARTINEZMIX = 1,
+		GUTGORE = 2,
+		MULTWOPLY = 3,
+		REBLENDER = 4,
+	} blendType;
+
+
+	typedef struct {
+		blendType type;
+		int purity; // 1 - 4 Toxic, 5 - 7 Normal, 8 - 10 Premium
+	} bean;
+
+
+	typedef struct {
+		bean base;
+		bean hybrid;
+		int cups;
+	} brew;
+
+
+	// Coffee Defaults
+	const int maxCups = 3;
+	const bean nullBean = { EMPTY, 0 };
+	const brew emptyCup = { nullBean, nullBean };
+
+	bean beInventory[10] = { nullBean, nullBean, nullBean, nullBean, nullBean, nullBean, nullBean, nullBean, nullBean, nullBean };
+	brew brInventory[3] = { emptyCup , emptyCup , emptyCup };
+
+	// Const Functionality
+	brew* currDrink = brInventory;
+
+	void drink(brew curr);
+	void addBean(int type, int purity, int slot);
+	void addBrew(int base, int hybrid, int purity);
+	char* blendToString(idPlayer::blendType type); 
+	void emptyBeans();
+	void emptyCups();
+	void previousCup();
+	void nextCup();
+
+
+
+
+
+
+
 	// inventory
 	idInventory				inventory;
 

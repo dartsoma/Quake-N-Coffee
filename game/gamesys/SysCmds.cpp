@@ -26,7 +26,7 @@
 // RAVEN END
 
 #ifdef _WIN32
-#include "TypeInfo.h"
+#include "TypeInfo"
 #else
 #include "NoGameTypeInfo.h"
 #endif
@@ -171,7 +171,7 @@ void Cmd_ListSpawnArgs_f( const idCmdArgs &args ) {
 
 	for ( i = 0; i < ent->spawnArgs.GetNumKeyVals(); i++ ) {
 		const idKeyValue *kv = ent->spawnArgs.GetKeyVal( i );
-		gameLocal.Printf( "\"%s\"  "S_COLOR_WHITE"\"%s\"\n", kv->GetKey().c_str(), kv->GetValue().c_str() );
+		gameLocal.Printf( "\"%s\"  " S_COLOR_WHITE "\"%s\"\n", kv->GetKey().c_str(), kv->GetValue().c_str() );
 	}
 }
 
@@ -585,6 +585,28 @@ Sets client to godmode
 argv(0) god
 ==================
 */
+
+void Cmd_CurrDrink(const idCmdArgs& args) {
+
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+
+	if (!player) { 
+		return;
+	}
+
+	char* baseType = player->idPlayer::blendToString(player->currDrink->base.type);
+	char* hybridType = player->idPlayer::blendToString(player->currDrink->hybrid.type);
+
+	int basePurity = player->currDrink->base.purity;
+	int hybridPurity = player->currDrink->hybrid.purity;
+
+	int cupsLeft = player->currDrink->cups;
+
+	gameLocal.Printf("Current Drink:\nBase: %s, Purity: %s\nHybrid: %s, Purity: %s\nCups Left: %s\n", baseType, basePurity, hybridType, hybridPurity, cupsLeft);
+}
+
 void Cmd_God_f( const idCmdArgs &args ) {
 	char		*msg;
 	idPlayer	*player;
@@ -3232,7 +3254,7 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand( "buyMenu",				Cmd_ToggleBuyMenu_f,		CMD_FL_GAME,				"Toggle buy menu (if in a buy zone and the game type supports it)" );
 	cmdSystem->AddCommand( "buy",					Cmd_BuyItem_f,				CMD_FL_GAME,				"Buy an item (if in a buy zone and the game type supports it)" );
 // RITUAL END
-
+	cmdSystem->AddCommand("checkDrink", Cmd_CurrDrink, CMD_FL_GAME, "Check what drink you're holding");
 }
 
 /*
