@@ -352,7 +352,7 @@ COFFEE MOD
 
 	typedef enum {
 		EMPTY = -1,
-		BASICBREW = 0,
+		BASICBREW = 0, 
 		MARTINEZMIX = 1,
 		GUTGORE = 2,
 		MULTWOPLY = 3,
@@ -374,7 +374,7 @@ COFFEE MOD
 
 
 	// Coffee Defaults
-	const int maxCups = 3;
+	const int maxCups = 3;	
 	const bean nullBean = { EMPTY, 0 };
 	const brew emptyCup = { nullBean, nullBean };
 

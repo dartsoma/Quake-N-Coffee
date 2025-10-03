@@ -603,10 +603,11 @@ void Cmd_CurrDrink(const idCmdArgs& args) {
 
 	int basePurity = player->currDrink->base.purity;
 	int hybridPurity = player->currDrink->hybrid.purity;
+	int purity = (basePurity + hybridPurity)/2;
 
 	int cupsLeft = player->currDrink->cups;
 
-	gameLocal.Printf("Current Drink:\nBase: %s, Purity: %s\nHybrid: %s, Purity: %s\nCups Left: %s\n\n", baseType, basePurity, hybridType, hybridPurity, cupsLeft);
+	gameLocal.Printf("Current Drink:\nBase: %s,\n Hybrid: %s,\n Purity: %d,\n Cups Left: %d\n\n", baseType, hybridType, purity, cupsLeft);
 }
 
 void Cmd_AddBean(const idCmdArgs& args) {

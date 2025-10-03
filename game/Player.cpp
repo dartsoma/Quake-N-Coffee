@@ -250,38 +250,43 @@ void idPlayer::addBrew(int base, int hybrid, int purity) {
 		if (base > -1) { // base cannot be 0 else the cup is considered empty
 
 			blendType baseType = static_cast<blendType>(base);
-			bean baseBean = { baseType,purity };
+			bean baseBean = { baseType, purity };
 
-			if (hybrid > -1) {
+			if (hybrid < 0) {
 				newBrew = { baseBean, nullBean, maxCups - maxCups / 3 };
 			}
 			else {
-				bean hypBean = { static_cast<blendType>(base),purity };
+				bean hypBean = { static_cast<blendType>(hybrid),purity };
 				newBrew = { baseBean, hypBean, maxCups };
 			}
 
 		}
 	}
-
-	for (int c; c < 10; c++) {
-		if (brInventory[c].base.type == -1) {
+		int c; // Iterator 
+		for (c = 0; c < 3; c++) {
+		if (brInventory[c].base.type == EMPTY && currDrink->base.type != EMPTY) {
 			brInventory[c] = newBrew;
-		}
-		else {
-			*currDrink = newBrew;
+			return;
 		}
 	}
+	*currDrink = newBrew;
 	return;
 }
+
 void idPlayer::emptyBeans() {
-	for (int b; b < 10; b++) {
+	int b = 0;
+	
+	for (b = 0; b < 10; b++) {
 		beInventory[b] = nullBean;
 	}
 	return;
 }
 void idPlayer::emptyCups() {
-	for (int c; c < 3; c++) {
-		brInventory[c] = emptyCup;
+	brew null = emptyCup;
+
+	int x;
+	for (x = 0; x < 3; x++) {
+		brInventory[x] = emptyCup;
 	}
 	return;
 }
