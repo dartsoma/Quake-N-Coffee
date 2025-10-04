@@ -630,6 +630,17 @@ void Cmd_AddBrew(const idCmdArgs& args) {
 
 }
 
+void Cmd_SetCaffeine(const idCmdArgs& args) {
+
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+
+
+	player->setCaffeine(atoi(args.Argv(1)));
+
+}
+
 void Cmd_ClearCoffee(const idCmdArgs& args) {
 
 	idPlayer* player;
@@ -3322,7 +3333,7 @@ void idGameLocal::InitConsoleCommands(void) {
 	cmdSystem->AddCommand("clearBean", Cmd_ClearBean, CMD_FL_GAME, "Clear Beans");
 	cmdSystem->AddCommand("nextCup", Cmd_PreviousCup, CMD_FL_GAME, "nextCup");
 	cmdSystem->AddCommand("prevCup", Cmd_NextCup, CMD_FL_GAME, "PreviousCup");
-
+	cmdSystem->AddCommand("setCaff", Cmd_SetCaffeine, CMD_FL_GAME, "Set Caffeinne Level");
 }
 /*
 =================

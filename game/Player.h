@@ -348,7 +348,16 @@ COFFEE MOD
 
 	*/
 
-
+	// Status effects
+	float caffeine = 100;
+	float maxcaffeine = 100;
+	
+	float coffeeTimer; // general timer for coffee effects + debuff for basic brew
+	float psychosis; // Martinez Mix
+	float whiplashTime; // Martinez Mix
+	int nauseaLevel; // Gutgore
+	float dilution;// Mul2ply
+	float debuffLevel; // Reblender
 
 	typedef enum {
 		EMPTY = -1,
@@ -392,8 +401,9 @@ COFFEE MOD
 	void emptyCups();
 	void previousCup();
 	void nextCup();
-
-
+	void updateCoffeeHud(idUserInterface* _hud); // prints to the hud
+	void setCaffeine(int c);
+	char* coffeeName();
 
 
 

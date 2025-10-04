@@ -207,7 +207,7 @@ char* idPlayer::blendToString(blendType type) {
 	case idPlayer::GUTGORE:
 		return "Gut Gore";
 	case idPlayer::MULTWOPLY:
-		return "Multwoply";
+		return "Mul-two-ply";
 	case idPlayer::REBLENDER:
 		return "Reblender";
 	case idPlayer::EMPTY:
@@ -311,7 +311,67 @@ void idPlayer::nextCup() {
 	}
 }
 
+void idPlayer::setCaffeine(int c)
+{
+	caffeine = c;
+	return;
+}
 
+char* idPlayer::coffeeName() {
+	char* baseN;
+	char* hybN;
+	blendType b = currDrink->base.type;
+	blendType h = currDrink->base.type;
+
+	if (h == b) {
+		return blendToString(b);
+	}
+
+	switch (b) {
+	case idPlayer::BASICBREW:
+		baseN = "Basic";
+		break;
+	case idPlayer::MARTINEZMIX:
+		baseN = "Martinez";
+		break;
+	case idPlayer::GUTGORE:
+		baseN = "Gut";
+		break;
+	case idPlayer::MULTWOPLY:
+		baseN = "Mul";
+		break;
+	case idPlayer::REBLENDER:
+		baseN = "Re";
+		break;
+	case idPlayer::EMPTY:
+		return "Empty";
+	default:
+		return "Error";
+	}
+
+	switch (h) {
+		case idPlayer::BASICBREW:
+			hybN = " Brew";
+			break;
+		case idPlayer::MARTINEZMIX:
+			hybN = " Mix";
+			break;
+		case idPlayer::GUTGORE:
+			hybN = " Gore";
+			break;
+		case idPlayer::MULTWOPLY:
+			hybN = "-two-ply";
+			break;
+		case idPlayer::REBLENDER:
+			hybN = "blender";
+			break;
+		case idPlayer::EMPTY:
+			return blendToString(b);
+	}
+	
+	return strcat(baseN, hybN);
+
+}
 
 void idInventory::Clear( void ) {
 	maxHealth			= 0;
@@ -3504,7 +3564,7 @@ idPlayer::UpdateHudStats
 */
 void idPlayer::UpdateHudStats( idUserInterface *_hud ) {
 	int temp;
-	
+	char* temp1;
 	assert ( _hud );
 
 	temp = _hud->State().GetInt ( "player_health", "-1" );
@@ -3514,6 +3574,16 @@ void idPlayer::UpdateHudStats( idUserInterface *_hud ) {
 		_hud->SetStateFloat	( "player_healthpct", idMath::ClampFloat ( 0.0f, 1.0f, (float)health / (float)inventory.maxHealth ) );
 		_hud->HandleNamedEvent ( "updateHealth" );
 	}
+	
+
+	temp1 = (char*) _hud->State().GetString("coffeename", "debug");
+
+	if (temp1 != coffeeName()) {
+		_hud->SetStateInt("player_caffeine", caffeine < -100 ? -100 : caffeine);
+		_hud->SetStateFloat("player_caffpct", idMath::ClampFloat(0.0f, 1.0f, (float)caffeine / (float)maxcaffeine));
+		_hud->HandleNamedEvent("updateCaffeine");
+	}
+
 		
 	temp = _hud->State().GetInt ( "player_armor", "-1" );
 	if ( temp != inventory.armor ) {
