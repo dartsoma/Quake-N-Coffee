@@ -3,36 +3,40 @@
   "WorkspaceRootPath": "C:\\Users\\chads\\Documents\\Quake-N-Coffee\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\gamesys\\SysCmds.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\gamesys\\SysCmds.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\Weapon.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\Weapon.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\Player_Cheats.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\Player_Cheats.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\weapon\\WeaponBlaster.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\weapon\\WeaponBlaster.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\ai\\AI.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\ai\\AI.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\chads\\Documents\\Quake-N-Coffee\\RENDERER\\MATERIAL.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:RENDERER\\MATERIAL.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\ai\\AI_Actions.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\ai\\AI_Actions.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\ai\\AI.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\ai\\AI.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\chads\\Documents\\Quake-N-Coffee\\UI\\USERINTERFACE.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:UI\\USERINTERFACE.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\USERS\\CHADS\\DOCUMENTS\\QUAKE-N-COFFEE\\RENDERER\\MATERIAL.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:RENDERER\\MATERIAL.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\gamesys\\SysCmds.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\gamesys\\SysCmds.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,7 +46,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
@@ -52,7 +56,7 @@
               "RelativeDocumentMoniker": "game\\Player.h",
               "ToolTip": "C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\Player.h",
               "RelativeToolTip": "game\\Player.h",
-              "ViewState": "AgIAAIcBAAAAAAAAAAAwwI4BAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAAFkBAAAAAAAAAAAwwLEBAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-10-01T22:10:22.957Z",
               "IsPinned": true,
@@ -60,7 +64,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "Weapon.cpp",
               "DocumentMoniker": "C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\Weapon.cpp",
               "RelativeDocumentMoniker": "game\\Weapon.cpp",
@@ -74,7 +78,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 4,
               "Title": "Material.h",
               "DocumentMoniker": "C:\\Users\\chads\\Documents\\Quake-N-Coffee\\renderer\\Material.h",
               "RelativeDocumentMoniker": "renderer\\Material.h",
@@ -88,20 +92,59 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Player_Cheats.cpp",
-              "DocumentMoniker": "C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\Player_Cheats.cpp",
-              "RelativeDocumentMoniker": "game\\Player_Cheats.cpp",
-              "ToolTip": "C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\Player_Cheats.cpp",
-              "RelativeToolTip": "game\\Player_Cheats.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAUAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "Player.cpp",
+              "DocumentMoniker": "C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\Player.cpp",
+              "RelativeDocumentMoniker": "game\\Player.cpp",
+              "ToolTip": "C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\Player.cpp",
+              "RelativeToolTip": "game\\Player.cpp",
+              "ViewState": "AgIAAAYlAAAAAAAAAAAwwBAlAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-10-04T21:29:38.934Z",
+              "WhenOpened": "2025-10-01T22:10:23.819Z",
+              "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
+              "Title": "AI.h",
+              "DocumentMoniker": "C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\ai\\AI.h",
+              "RelativeDocumentMoniker": "game\\ai\\AI.h",
+              "ToolTip": "C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\ai\\AI.h",
+              "RelativeToolTip": "game\\ai\\AI.h",
+              "ViewState": "AgIAAIcBAAAAAAAAAAAewLIBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-10-05T15:56:27.529Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AI_Actions.cpp",
+              "DocumentMoniker": "C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\ai\\AI_Actions.cpp",
+              "RelativeDocumentMoniker": "game\\ai\\AI_Actions.cpp",
+              "ToolTip": "C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\ai\\AI_Actions.cpp",
+              "RelativeToolTip": "game\\ai\\AI_Actions.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-10-05T15:56:28.939Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AI.cpp",
+              "DocumentMoniker": "C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\ai\\AI.cpp",
+              "RelativeDocumentMoniker": "game\\ai\\AI.cpp",
+              "ToolTip": "C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\ai\\AI.cpp",
+              "RelativeToolTip": "game\\ai\\AI.cpp",
+              "ViewState": "AgIAADEBAAAAAAAAAAAwwDYBAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-10-05T15:56:16.05Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "UserInterface.h",
               "DocumentMoniker": "C:\\Users\\chads\\Documents\\Quake-N-Coffee\\ui\\UserInterface.h",
               "RelativeDocumentMoniker": "ui\\UserInterface.h",
@@ -109,47 +152,19 @@
               "RelativeToolTip": "ui\\UserInterface.h",
               "ViewState": "AgIAACkAAAAAAAAAAAAAADoAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-10-04T01:40:12.274Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-04T01:40:12.274Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "WeaponBlaster.cpp",
-              "DocumentMoniker": "C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\weapon\\WeaponBlaster.cpp",
-              "RelativeDocumentMoniker": "game\\weapon\\WeaponBlaster.cpp",
-              "ToolTip": "C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\weapon\\WeaponBlaster.cpp",
-              "RelativeToolTip": "game\\weapon\\WeaponBlaster.cpp",
-              "ViewState": "AgIAAGAAAAAAAAAAAAAAAGcAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-10-03T07:15:57.717Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Player.cpp",
-              "DocumentMoniker": "C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\Player.cpp",
-              "RelativeDocumentMoniker": "game\\Player.cpp",
-              "ToolTip": "C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\Player.cpp",
-              "RelativeToolTip": "game\\Player.cpp",
-              "ViewState": "AgIAADABAAAAAAAAAAAuwDoBAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-10-01T22:10:23.819Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 8,
               "Title": "SysCmds.cpp",
               "DocumentMoniker": "C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\gamesys\\SysCmds.cpp",
               "RelativeDocumentMoniker": "game\\gamesys\\SysCmds.cpp",
               "ToolTip": "C:\\Users\\chads\\Documents\\Quake-N-Coffee\\game\\gamesys\\SysCmds.cpp",
               "RelativeToolTip": "game\\gamesys\\SysCmds.cpp",
-              "ViewState": "AgIAAP8MAAAAAAAAAAAAAAcNAABUAAAAAAAAAA==",
+              "ViewState": "AgIAAD8MAAAAAAAAAAAAAAcNAABUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-10-01T22:08:55.256Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-01T22:08:55.256Z"
             }
           ]
         }

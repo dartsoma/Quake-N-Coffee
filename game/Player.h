@@ -350,14 +350,14 @@ COFFEE MOD
 
 	// Status effects
 	float caffeine = 100;
-	float maxcaffeine = 100;
+	float maxCaffeine = 100;
 	
-	float coffeeTimer; // general timer for coffee effects + debuff for basic brew
-	float psychosis; // Martinez Mix
-	float whiplashTime; // Martinez Mix
-	int nauseaLevel; // Gutgore
-	float dilution;// Mul2ply
-	float debuffLevel; // Reblender
+	float coffeeTimer = 0.025; // general timer for coffee effects + debuff for basic brew
+	float psychosis = 0; // Martinez Mix
+	float whiplashTime = 0; // Martinez Mix
+	int nauseaLevel = 0; // Gutgore
+	float dilution = 0;// Mul2ply
+	float debuffLevel = 0; // Reblender
 
 	typedef enum {
 		EMPTY = -1,

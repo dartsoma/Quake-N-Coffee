@@ -1674,10 +1674,10 @@ void idPlayer::Init( void ) {
 	const char			*value;
 	
 	noclip					= false;
-	godmode					= false;
+	godmode					= true;
 	godmodeDamage			= 0;
 	undying					= g_forceUndying.GetBool() ? !gameLocal.isMultiplayer : false;
-
+	caffeine				= 100;
 	oldButtons				= 0;
 	oldFlags				= 0;
 
@@ -3576,11 +3576,12 @@ void idPlayer::UpdateHudStats( idUserInterface *_hud ) {
 	}
 	
 
-	temp1 = (char*) _hud->State().GetString("coffeename", "debug");
+	temp = _hud->State().GetInt("player_caffeine", "-1");
 
-	if (temp1 != coffeeName()) {
-		_hud->SetStateInt("player_caffeine", caffeine < -100 ? -100 : caffeine);
-		_hud->SetStateFloat("player_caffpct", idMath::ClampFloat(0.0f, 1.0f, (float)caffeine / (float)maxcaffeine));
+	if (temp != caffeine) {
+		_hud->SetStateString("coffeename", (char*) coffeeName());
+		_hud->SetStateFloat("player_caffeine", caffeine < -100 ? -100 : caffeine);
+		_hud->SetStateFloat("player_caffpct", idMath::ClampFloat(0.0f, 1.0f, (float)caffeine / (float)maxCaffeine));
 		_hud->HandleNamedEvent("updateCaffeine");
 	}
 
@@ -9484,6 +9485,8 @@ void idPlayer::Think( void ) {
 			}
 		}
 	}
+
+	caffeine = idMath::ClampFloat(0.5f,100.0f, caffeine - coffeeTimer);
 
 	if ( !gameLocal.usercmds ) {
 		return;
