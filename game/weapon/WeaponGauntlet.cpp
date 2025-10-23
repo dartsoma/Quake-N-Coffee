@@ -26,6 +26,7 @@ protected:
 	jointHandle_t		bladeJoint;
 	jointHandle_t		bladeJoint_world;
 	int					bladeAccel;
+	int					cooldown = 0;
 	
 	float				range;
 	
@@ -98,7 +99,7 @@ void rvWeaponGauntlet::Spawn ( void ) {
 	bladeSpinSlow	= spawnArgs.GetAngles ( "blade_spinslow" );
 	bladeAccel		= SEC2MS ( spawnArgs.GetFloat ( "blade_accel", ".25" ) );
 	
-	range			= spawnArgs.GetFloat ( "range", "32" );
+	range			= spawnArgs.GetFloat ( "range", "50" );
 
 	impactMaterial = -1;
 	impactEffect   = NULL;
@@ -285,8 +286,15 @@ void rvWeaponGauntlet::Attack ( void ) {
 			if ( ent->fl.takedamage ) {
 				float dmgScale = 1.0f;
 				dmgScale *= owner->PowerUpModifier( PMOD_MELEE_DAMAGE );
-				ent->Damage ( owner, owner, playerViewAxis[0], spawnArgs.GetString ( "def_damage" ), dmgScale, 0 );
+				
+				if (owner->effectStatus(3)) {
+					dmgScale *= 2;
+				}
+
+				ent->Damage(owner, owner, playerViewAxis[0], spawnArgs.GetString("def_damage"), dmgScale, 0);
+
 				StartSound( "snd_hit", SND_CHANNEL_ANY, 0, false, NULL );
+				owner->caffeine += 25;
 				if ( ent->spawnArgs.GetBool( "bleed" ) ) {
 					PlayLoopSound( LOOP_FLESH );
 				} else {
@@ -469,6 +477,14 @@ stateResult_t rvWeaponGauntlet::State_Fire ( const stateParms_t& parms ) {
 		STAGE_END,
 		STAGE_END_WAIT
 	};	
+
+
+	if (cooldown) {
+	
+	
+	}
+
+
 	switch ( parms.stage ) {
 		case STAGE_START:	
 			PlayAnim ( ANIMCHANNEL_ALL, "attack_start", parms.blendFrames );

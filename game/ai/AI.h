@@ -189,7 +189,7 @@ typedef struct rvAIEnemy_s {
 	idEntityPtr<idEntity>	ent;
 	int						lastVisibleChangeTime;			// last time the visible state of the enemy changed
 	idVec3					lastVisibleFromEyePosition;		// Origin used in last successfull visibility check
-	idVec3					lastVisibleEyePosition;			// Origin of last known visible eye position
+	idVec3			 		lastVisibleEyePosition;			// Origin of last known visible eye position
 	idVec3					lastVisibleChestPosition;		// Origin of last known visible chest position
 	int						lastVisibleTime;				// Time we last saw and enemy
 

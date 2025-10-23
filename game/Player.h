@@ -120,15 +120,16 @@ typedef struct {
 // powerups
 enum {
 	// standard powerups
-	POWERUP_QUADDAMAGE = 0, 
+	POWERUP_QUADDAMAGE = 0,
 	POWERUP_HASTE,
 	POWERUP_REGENERATION,
 	POWERUP_INVISIBILITY,
-		
+	
 	// ctf powerups
 	POWERUP_CTF_MARINEFLAG,
 	POWERUP_CTF_STROGGFLAG,
 	POWERUP_CTF_ONEFLAG,
+
 
 	// persistant powerups, keep these with ammo regen first and scout last or persistance breaks
 	POWERUP_AMMOREGEN,
@@ -348,24 +349,37 @@ COFFEE MOD
 
 	*/
 
-	// Status effects
-	float caffeine = 100;
-	float maxCaffeine = 100;
+	// Default Variables 
+
+	#define EFFECTS 16 // milliseconds in a second
+	float caffeine = 100.0f;
+	float overCaffeination = 0.0f;
+	float maxCaffeine = 100.0f;
+	float coffeeTimer = 0.05f; // general timer for coffee effects 
+	float drinkDebounce = 0.0f; // debounce timer for drinking coffee
+
+	// Effect Variables
+
+	/*
+
+		Buffs - OverCaffinated, Distortion, Purge, Critical, More Drops, 
+
+		Ailment - Addiction, Psychosis, Whiplash, Nausea, Weakness, Debuffed
 	
-	float coffeeTimer = 0.025; // general timer for coffee effects + debuff for basic brew
-	float psychosis = 0; // Martinez Mix
-	float whiplashTime = 0; // Martinez Mix
-	int nauseaLevel = 0; // Gutgore
-	float dilution = 0;// Mul2ply
-	float debuffLevel = 0; // Reblender
+	*/
+
+	int effectTimer[EFFECTS];
+	int16_t activeEffects;
+	bool overCaffeinated = false;
+
 
 	typedef enum {
 		EMPTY = -1,
-		BASICBREW = 0, 
+		BASICBREW = 0,
 		MARTINEZMIX = 1,
 		GUTGORE = 2,
 		MULTWOPLY = 3,
-		REBLENDER = 4,
+		REBLENDER = 4
 	} blendType;
 
 
@@ -393,20 +407,27 @@ COFFEE MOD
 	// Const Functionality
 	brew* currDrink = brInventory;
 
-	void drink(brew curr);
+
+	// Coffee Functionality
+	void drink();
+	void addBean(int type, int purity);
 	void addBean(int type, int purity, int slot);
 	void addBrew(int base, int hybrid, int purity);
-	char* blendToString(idPlayer::blendType type); 
+	char* blendToString(idPlayer::blendType type);
 	void emptyBeans();
 	void emptyCups();
 	void previousCup();
 	void nextCup();
-	void updateCoffeeHud(idUserInterface* _hud); // prints to the hud
 	void setCaffeine(int c);
 	char* coffeeName();
 
 
-
+	// Duration Effects
+	void setEffect(int effect, int duration); // Timer
+	void updateEffects();
+	void clearEffects();
+	bool effectStatus(int effect);
+	void effectDoOnce(int effect);
 
 
 	// inventory

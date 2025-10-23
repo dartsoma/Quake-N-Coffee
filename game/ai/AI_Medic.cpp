@@ -791,6 +791,7 @@ stateResult_t rvAIMedic::State_Medic ( const stateParms_t& parms ) {
 				if ( AnimDone( ANIMCHANNEL_TORSO, 4 ) || idStr::Icmp( animator.CurrentAnim( ANIMCHANNEL_TORSO )->AnimName(), "medic_treating_player" ) ) {
 					if ( !isTech ) {
 						patient->health = patient->health+healAmt>maxPatientValue?maxPatientValue:patient->health+healAmt;
+						patient->caffeine = patient->maxCaffeine;
 						if( !silent) {
 							Speak( "lipsync_heal_end_", true );
 						}

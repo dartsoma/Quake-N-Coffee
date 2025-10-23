@@ -217,7 +217,43 @@ char* idPlayer::blendToString(blendType type) {
 	}
 }
 
-void idPlayer::drink(brew curr) {
+void idPlayer::drink() {
+
+	bean &baseB = currDrink->base;
+	bean &hybridB = currDrink->hybrid;
+
+	if (currDrink->cups <= 0) {
+		*currDrink = emptyCup;
+		return; 
+	}
+	else {
+
+		currDrink->cups -= 1;
+		effectDoOnce(baseB.type);
+		effectDoOnce(hybridB.type);
+	}
+
+	return;
+}
+
+void  idPlayer::addBean(int type, int purity) {
+	bean newBean = nullBean;
+
+
+	if (type > -1 && type < 5) {
+
+		// Setters
+		newBean.type = static_cast<blendType>(type);
+		newBean.purity = purity;
+	}
+
+	int c; // Iterator 
+	for (c = 0; c < 3; c++) {
+		if (beInventory[c].type == EMPTY) {
+			beInventory[c] = newBean;
+			return;
+		}
+	}
 
 	return;
 }
@@ -232,9 +268,7 @@ void idPlayer::addBean(int type, int purity, int slot) {
 		newBean.type = static_cast<blendType>(type);
 		newBean.purity = purity;
 	}
-
 	beInventory[slot] = newBean;
-
 	return;
 
 }
@@ -281,6 +315,7 @@ void idPlayer::emptyBeans() {
 	}
 	return;
 }
+
 void idPlayer::emptyCups() {
 	brew null = emptyCup;
 
@@ -314,19 +349,17 @@ void idPlayer::nextCup() {
 void idPlayer::setCaffeine(int c)
 {
 	caffeine = c;
+	overCaffeination = idMath::ClampFloat(0.0f, 100.0f, caffeine - 100.0f);
+	caffeine > 100 ? 100 : caffeine;
 	return;
 }
 
 char* idPlayer::coffeeName() {
-	char* baseN;
-	char* hybN;
+	char* baseN = nullptr;
+	char* hybN = nullptr;
 	blendType b = currDrink->base.type;
-	blendType h = currDrink->base.type;
-
-	if (h == b) {
-		return blendToString(b);
-	}
-
+	blendType h = currDrink->hybrid.type;
+	
 	switch (b) {
 	case idPlayer::BASICBREW:
 		baseN = "Basic";
@@ -343,10 +376,8 @@ char* idPlayer::coffeeName() {
 	case idPlayer::REBLENDER:
 		baseN = "Re";
 		break;
-	case idPlayer::EMPTY:
-		return "Empty";
 	default:
-		return "Error";
+		return "Empty";
 	}
 
 	switch (h) {
@@ -365,13 +396,198 @@ char* idPlayer::coffeeName() {
 		case idPlayer::REBLENDER:
 			hybN = "blender";
 			break;
-		case idPlayer::EMPTY:
+		default:
 			return blendToString(b);
 	}
 	
-	return strcat(baseN, hybN);
+	static char result[32];
+	
+	strcpy(result, baseN);
+	strcat(result, hybN);
 
+	return result;
 }
+
+	void idPlayer::setEffect(int effect, int duration) {
+
+		activeEffects |= 1 << effect;
+		effectTimer[idMath::ILog2(effect)] = duration == -1 ? -1 : (gameLocal.time + duration);
+	}
+
+void idPlayer::updateEffects() {
+	int i;	
+	int d;
+	
+	for (i = 0; i < EFFECTS; i++) {
+		if (effectTimer[i] > 0 && effectTimer[i] < gameLocal.time) {
+
+			switch (i) {
+			case 0: // OverCaffeinated
+				effectDoOnce(5);
+
+				break;
+			case 1: // Time Distortion + Speed
+
+				effectDoOnce(6);
+				effectDoOnce(7);
+				// Stop Audio
+				// Reset View Distortion
+
+				break;
+
+			case 2: // PURGE
+				// To do later
+
+
+				effectDoOnce(8);
+				break;
+
+			case 3: // Critical
+				effectDoOnce(9);
+				break;
+
+			case 4: // More Drops
+				effectDoOnce(10);
+				break;
+
+			case 5: // Addiction
+
+				break;
+
+			case 6: // Psychosis
+
+				break;
+
+			case 7: // Whiplash
+				// To be done later
+				break;
+
+			case 8: // Nausea
+				// To be done later
+				break;
+
+			case 9: // Weakness
+				// To be done later
+				break;
+
+			case 10: // Debuffed
+				break;
+
+			}
+
+			effectTimer[i] = 0;
+			activeEffects &= ~(1 << i); // not the effect anymore
+		}
+	}
+
+	// Coffee Effects
+
+	if(overCaffeinated && caffeine > 100.0f){
+		overCaffeination = idMath::ClampFloat(0.0f, 100.0f, caffeine - 100.0f);
+	}
+
+	else {
+		overCaffeinated = false;
+		overCaffeination = 0.0f;
+	}
+	return;
+}
+
+
+void idPlayer::effectDoOnce(int effect) {
+	int d;
+	
+	switch (effect) {
+	case 0: // OverCaffeinated
+
+		//overCaffeinated = true;
+		setEffect(1, SEC2MS(10));
+		return;
+
+	case 1: // Time Distortion + Speed
+
+
+		setEffect(2, SEC2MS(10));
+		return;
+
+	case 2: // PURGE
+
+		setEffect(4, SEC2MS(10));
+
+
+		return;
+
+	case 3: // Critical
+	
+		// Need Weapon code
+		setEffect(8, SEC2MS(10));
+		return;
+
+	case 4: // More Drops
+
+			// Need Enemy Code
+		setEffect(16, SEC2MS(10));
+		return;
+
+	case 5: // Addiction
+
+
+		setEffect(32, SEC2MS(10));
+		break;
+
+	case 6: // Psychosis
+
+
+		setEffect(64, SEC2MS(10));
+		return;
+
+	case 7: // Whiplash
+		// To be done later
+
+		setEffect(128, SEC2MS(10));
+		return;
+
+	case 8: // Nausea
+		// To be done later
+
+
+		setEffect(256, SEC2MS(10));
+		return;
+
+	case 9: // Weakness
+		// To be done later
+
+		setEffect(512, SEC2MS(10));
+		return;
+
+	case 10: // Debuffed
+		setEffect(1024, SEC2MS(10));
+		return;
+
+	}
+	return;
+}
+
+
+bool idPlayer::effectStatus(int effect) {
+	int d = (int) idMath::Pow(2, effect);
+	return (activeEffects & (1 << d)) != 0;
+}
+
+
+
+// Cmd thing
+void idPlayer::clearEffects() {
+	int i;
+	for (i = 0; i < EFFECTS; i++) {
+		effectTimer[i] = 0;
+	}
+	activeEffects = 0;
+	return;
+}
+
+
+
 
 void idInventory::Clear( void ) {
 	maxHealth			= 0;
@@ -416,6 +632,9 @@ void idInventory::Clear( void ) {
 idInventory::GivePowerUp
 ==============
 */
+
+
+
 void idInventory::GivePowerUp( idPlayer *player, int powerup, int msec ) {
 	powerups |= 1 << powerup;
 	powerupEndTime[ powerup ] = msec == -1 ? -1 : (gameLocal.time + msec);
@@ -1019,6 +1238,38 @@ bool idInventory::Give( idPlayer *owner, const idDict &spawnArgs, const char *st
 		i = AmmoIndexForAmmoClass( statname );
 		max = MaxAmmoForAmmoClass( owner, statname );
 		amount = atoi( value );
+		
+		int g = i;
+
+		if (g > 5 || g <5){
+			g = rvRandom::irand(1, 5);
+		}
+
+		switch (i) {
+
+		case 1:
+			// basic bean
+			owner->addBean(1, rvRandom::irand(1, 10));
+			break;
+		case 2:
+			// martinez mix
+			owner->addBean(2, rvRandom::irand(1, 10));
+			break;
+		case 3:
+			// gut gore
+			owner->addBean(3, rvRandom::irand(1, 10));
+			break;
+
+		case 4:
+			// mult2ply
+			owner->addBean(4, rvRandom::irand(1, 10));
+			break;
+
+		case 5:
+			// reblender
+			owner->addBean(5, rvRandom::irand(1, 10));
+			break;
+		}
 
 // RAVEN BEGIN
 // mekberg: check max ammo vs clipsize when picking up ammo
@@ -1672,14 +1923,15 @@ idPlayer::Init
 */
 void idPlayer::Init( void ) {
 	const char			*value;
-	
+
 	noclip					= false;
 	godmode					= true;
 	godmodeDamage			= 0;
-	undying					= g_forceUndying.GetBool() ? !gameLocal.isMultiplayer : false;
-	caffeine				= 100;
+	undying = g_forceUndying.GetBool() ? !gameLocal.isMultiplayer : false;
 	oldButtons				= 0;
 	oldFlags				= 0;
+
+	clearEffects();
 
 	currentWeapon			= -1;
 	idealWeapon				= -1;
@@ -3564,7 +3816,7 @@ idPlayer::UpdateHudStats
 */
 void idPlayer::UpdateHudStats( idUserInterface *_hud ) {
 	int temp;
-	char* temp1;
+	
 	assert ( _hud );
 
 	temp = _hud->State().GetInt ( "player_health", "-1" );
@@ -3576,14 +3828,32 @@ void idPlayer::UpdateHudStats( idUserInterface *_hud ) {
 	}
 	
 
-	temp = _hud->State().GetInt("player_caffeine", "-1");
 
-	if (temp != caffeine) {
-		_hud->SetStateString("coffeename", (char*) coffeeName());
+	// temp = _hud->State().GetInt("player_caffeine", "-1");
+
+	// if ((float) temp != idPlayer::caffeine || temp >= maxCaffeine || overCaffeinated) {
+
+		_hud->SetStateString("coffeename", coffeeName());
 		_hud->SetStateFloat("player_caffeine", caffeine < -100 ? -100 : caffeine);
-		_hud->SetStateFloat("player_caffpct", idMath::ClampFloat(0.0f, 1.0f, (float)caffeine / (float)maxCaffeine));
-		_hud->HandleNamedEvent("updateCaffeine");
-	}
+		_hud->SetStateFloat("player_overcaffeine", overCaffeination < -100 ? -100 : overCaffeination);
+		//_hud->SetStateFloat("player_caffpct", idMath::ClampFloat(0.0f, 1.0f, (float)caffeine / (float)maxCaffeine));
+		
+
+		// Set all the timers for the hud
+		_hud->SetStateInt("btimer1", (effectTimer[0] <= gameLocal.time ? 0 : (effectTimer[0] - gameLocal.time)/1000)); // Over Caffienation
+		_hud->SetStateInt("btimer2", (effectTimer[1] <= gameLocal.time ? 0 : (effectTimer[1] - gameLocal.time)/1000)); // Time Distortion
+		_hud->SetStateInt("btimer3", (effectTimer[2] <= gameLocal.time ? 0 : (effectTimer[2] - gameLocal.time)/1000)); // Gut Gore
+		_hud->SetStateInt("btimer4", (effectTimer[3] <= gameLocal.time ? 0 : (effectTimer[3] - gameLocal.time)/1000)); // MulTwoPly
+		_hud->SetStateInt("btimer5", (effectTimer[4] <= gameLocal.time ? 0 : (effectTimer[4] - gameLocal.time)/1000)); // Reblender
+		_hud->SetStateInt("dtimer1", (effectTimer[5] <= gameLocal.time ? 0 : (effectTimer[5] - gameLocal.time)/1000));
+		_hud->SetStateInt("dtimer2", (effectTimer[6] <= gameLocal.time ? 0 : (effectTimer[6] - gameLocal.time)/1000));
+		_hud->SetStateInt("dtimer3", (effectTimer[7] <= gameLocal.time ? 0 : (effectTimer[7] - gameLocal.time)/1000));
+		_hud->SetStateInt("dtimer4", (effectTimer[8] <= gameLocal.time ? 0 : (effectTimer[8] - gameLocal.time)/1000));
+		_hud->SetStateInt("dtimer5", (effectTimer[9] <= gameLocal.time ? 0 : (effectTimer[9] - gameLocal.time)/1000));
+		_hud->SetStateInt("dtimer6", (effectTimer[10] <= gameLocal.time ? 0 : (effectTimer[10] - gameLocal.time)/1000));
+
+
+
 
 		
 	temp = _hud->State().GetInt ( "player_armor", "-1" );
@@ -3630,6 +3900,7 @@ void idPlayer::UpdateHudStats( idUserInterface *_hud ) {
 idPlayer::UpdateHudWeapon
 ===============
 */
+
 void idPlayer::UpdateHudWeapon( int displayWeapon ) {
 	
 	if ( (displayWeapon < -1) || (displayWeapon >= MAX_WEAPONS) ) {
@@ -5548,6 +5819,9 @@ void idPlayer::GiveItem( const char *itemname ) {
 				for ( i = 0 ; i < MAX_AMMOTYPES; i++ ) {
 					int a = gameLocal.mpGame.mpBuyingManager.GetIntValueForKey( rvWeapon::GetAmmoNameForIndex( i ), 0 );
 					inventory.ammo[i] += a; 
+
+
+
 					if ( inventory.ammo[i] > inventory.MaxAmmoForAmmoClass( this, rvWeapon::GetAmmoNameForIndex(i) ) ) {
 						inventory.ammo[i] = inventory.MaxAmmoForAmmoClass( this, rvWeapon::GetAmmoNameForIndex(i) );
 					}
@@ -9468,25 +9742,27 @@ idPlayer::Think
 Called every tic for each player
 ==============
 */
-void idPlayer::Think( void ) {
-	renderEntity_t *headRenderEnt;
- 
-	if ( talkingNPC ) {
-		if ( !talkingNPC.IsValid() ) {
+void idPlayer::Think(void) {
+	renderEntity_t* headRenderEnt;
+
+	if (talkingNPC) {
+		if (!talkingNPC.IsValid()) {
 			talkingNPC = NULL;
-		} else {
-			idAI *talkingNPCAI = (idAI*)(talkingNPC.GetEntity());
-			if ( !talkingNPCAI ) {
+		}
+		else {
+			idAI* talkingNPCAI = (idAI*)(talkingNPC.GetEntity());
+			if (!talkingNPCAI) {
 				//wtf?
 				talkingNPC = NULL;
-			} else if ( talkingNPCAI->talkTarget != this || !talkingNPCAI->IsSpeaking() || DistanceTo( talkingNPCAI ) > 256.0f ) {
+			}
+			else if (talkingNPCAI->talkTarget != this || !talkingNPCAI->IsSpeaking() || DistanceTo(talkingNPCAI) > 256.0f) {
 				//forget about them, okay to talk to someone else now
 				talkingNPC = NULL;
 			}
 		}
 	}
 
-	caffeine = idMath::ClampFloat(0.5f,100.0f, caffeine - coffeeTimer);
+
 
 	if ( !gameLocal.usercmds ) {
 		return;
@@ -9746,6 +10022,12 @@ void idPlayer::Think( void ) {
 	} else if ( health > 0 && !gameLocal.inCinematic ) {
 		UpdateWeapon();
 	}
+
+	caffeine = idMath::ClampFloat(5.0f, 100.0f, caffeine - coffeeTimer);
+
+
+
+	updateEffects();
 
 	UpdateAir();
 	
@@ -10451,6 +10733,9 @@ void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 		}
 
 		int oldHealth = health;
+		int oldCaffeine = caffeine;
+
+		oldCaffeine -= (damage * 0.5f);
 		health -= damage;
 
 		GAMELOG_ADD ( va("player%d_damage_taken", entityNumber ), damage );

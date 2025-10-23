@@ -2243,7 +2243,7 @@ void rvWeapon::GetTimeOffsets ( float *time, float *scale ) {
 }
 
 /*
-================
+================ 
 rvWeapon::GetGlobalJointTransform
 
 This returns the offset and axis of a weapon bone in world space, suitable for attaching models or lights

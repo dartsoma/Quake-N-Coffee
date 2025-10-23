@@ -4814,7 +4814,8 @@ const char* idMultiplayerGame::HandleGuiCommands( const char *_menuCommand ) {
 		} 
 // RAVEN BEGIN
 // cnicholson: The menu calls this prior to entering multiplayer settings. What it does is to check the current crosshair, and compare it
-//			   agasint the list of crosshairs in player.def under the player_marine_mp section. If it finds a match, it assigns the 
+//			   agasint the list of crosshairs in player
+// under the player_marine_mp section. If it finds a match, it assigns the 
 //			   crosshair to the next one in the list. If there isn't one, or if its the end of the list, the first found crosshair is used.
 		else if ( !idStr::Icmp( cmd, "chooseCrosshair" ) ) {
 #ifndef _XENON

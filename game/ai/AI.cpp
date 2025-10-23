@@ -1613,7 +1613,7 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 	idAngles			ang;
 	const char*			modelDeath;
 	const idKeyValue*	kv;
-	
+
 	if ( g_debugDamage.GetBool() ) {
 		gameLocal.Printf( "Damage: joint: '%s', zone '%s'\n", animator.GetJointName( ( jointHandle_t )location ), 
 			GetDamageGroup( location ) );
@@ -1732,6 +1732,57 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 	}
 
 	SetState ( "State_Killed" );
+	
+
+
+	// Drop Items
+
+	const char* key, * value;
+	int			i;
+	idVec3		org;
+	idDict		dict;
+	int			g;
+
+	g = rvRandom::irand(1,  5);
+
+	switch (g) {
+		case 1:
+			value = "ammo_blaster";
+			break;
+		case 2:
+			value = "ammo_nailgun";
+			break;
+		case 3:
+			value = "ammo_machinegun";
+			break;
+		case 4:
+			value = "ammo_railgun";
+			break;
+		case 5:
+			value = "ammo_shotgun";
+			break;
+		default:
+			value = "ammo_blaster";
+			break;
+	}
+
+
+	dict.Set("classname", value);
+	dict.Set("angle", va("%f", 180));
+
+	org = this->GetPhysics()->GetOrigin() + idAngles(0, 0, 0).ToForward() * 0 + idVec3(0, 0, 1);
+	dict.Set("origin", org.ToString());
+
+	// kfuller: want to know the name of the Item I spawned
+	idEntity* newEnt = NULL;
+	gameLocal.SpawnEntityDef(dict, &newEnt);
+
+	if (newEnt) {
+		gameLocal.Printf("%s dropped entity '%s'\n", name.c_str(), newEnt->name.c_str());
+	}
+
+
+	//
 
 	kv = spawnArgs.MatchPrefix( "def_drops", NULL );
 	while( kv ) {

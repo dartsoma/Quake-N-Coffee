@@ -610,6 +610,23 @@ void Cmd_CurrDrink(const idCmdArgs& args) {
 	gameLocal.Printf("Current Drink:\nBase: %s,\n Hybrid: %s,\n Purity: %d,\n Cups Left: %d\n\n", baseType, hybridType, purity, cupsLeft);
 }
 
+void Cmd_CurrBean(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	char* beanType = player->blendToString(player->beInventory[atoi(args.Argv(1))].type);
+	int beanPurity = player->beInventory[atoi(args.Argv(1))].purity;
+	gameLocal.Printf("Current Bean:\nBase: %s,\n Purity: %d,\n\n", beanType, beanPurity);
+}
+
+void Cmd_Drink(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	player->drink();
+}
+
 void Cmd_AddBean(const idCmdArgs& args) {
 
 	idPlayer* player;
@@ -639,6 +656,25 @@ void Cmd_SetCaffeine(const idCmdArgs& args) {
 
 	player->setCaffeine(atoi(args.Argv(1)));
 
+}
+
+
+
+void Cmd_ClearFX(const idCmdArgs& args) {
+
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+
+
+	player->clearEffects();
+
+}
+
+void Cmd_SetEffect(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	player->effectDoOnce(atoi(args.Argv(1)));
 }
 
 void Cmd_ClearCoffee(const idCmdArgs& args) {
@@ -1251,6 +1287,11 @@ void Cmd_Spawn_f( const idCmdArgs &args ) {
 // RAVEN END
 #endif // !_MPBETA
 }
+
+
+
+
+
 
 // RAVEN BEGIN
 // ddynerman: MP spawning command for performance testing
@@ -3327,6 +3368,7 @@ void idGameLocal::InitConsoleCommands(void) {
 	cmdSystem->AddCommand("buy", Cmd_BuyItem_f, CMD_FL_GAME, "Buy an item (if in a buy zone and the game type supports it)");
 	// RITUAL END
 	cmdSystem->AddCommand("checkDrink", Cmd_CurrDrink, CMD_FL_GAME, "Check what drink you're holding");
+	cmdSystem->AddCommand("checkBean", Cmd_CurrBean, CMD_FL_GAME, "Check what bean you're holding");
 	cmdSystem->AddCommand("addBean", Cmd_AddBean, CMD_FL_GAME, "Add a new bean");
 	cmdSystem->AddCommand("addBrew", Cmd_AddBrew, CMD_FL_GAME, "Add a new drink");
 	cmdSystem->AddCommand("clearCoffee", Cmd_ClearCoffee, CMD_FL_GAME, "Clear Drinks");
@@ -3334,6 +3376,9 @@ void idGameLocal::InitConsoleCommands(void) {
 	cmdSystem->AddCommand("nextCup", Cmd_PreviousCup, CMD_FL_GAME, "nextCup");
 	cmdSystem->AddCommand("prevCup", Cmd_NextCup, CMD_FL_GAME, "PreviousCup");
 	cmdSystem->AddCommand("setCaff", Cmd_SetCaffeine, CMD_FL_GAME, "Set Caffeinne Level");
+	cmdSystem->AddCommand("cleareff", Cmd_ClearFX, CMD_FL_GAME, "Clear Effects");
+	cmdSystem->AddCommand("drinkCup", Cmd_Drink, CMD_FL_GAME, "Drink Cup");
+	cmdSystem->AddCommand("seteff", Cmd_SetEffect, CMD_FL_GAME, "Set Effect");
 }
 /*
 =================
