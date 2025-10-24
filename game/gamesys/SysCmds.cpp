@@ -644,6 +644,15 @@ void Cmd_AddBean(const idCmdArgs& args) {
 	player->addBean(atoi(args.Argv(1)), atoi(args.Argv(2)), atoi(args.Argv(3)));
 }
 
+void Cmd_AddBean2(const idCmdArgs& args) {
+
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+
+	player->addBean(atoi(args.Argv(1)), atoi(args.Argv(2)));
+}
+
 void Cmd_AddBrew(const idCmdArgs& args) {
 
 	idPlayer* player;
@@ -3378,6 +3387,7 @@ void idGameLocal::InitConsoleCommands(void) {
 	cmdSystem->AddCommand("checkDrink", Cmd_CurrDrink, CMD_FL_GAME, "Check what drink you're holding");
 	cmdSystem->AddCommand("checkBean", Cmd_CurrBean, CMD_FL_GAME, "Check what bean you're holding");
 	cmdSystem->AddCommand("addBean", Cmd_AddBean, CMD_FL_GAME, "Add a new bean");
+	cmdSystem->AddCommand("addBean2", Cmd_AddBean2, CMD_FL_GAME, "Add a new bean");
 	cmdSystem->AddCommand("addBrew", Cmd_AddBrew, CMD_FL_GAME, "Add a new drink");
 	cmdSystem->AddCommand("clearCoffee", Cmd_ClearCoffee, CMD_FL_GAME, "Clear Drinks");
 	cmdSystem->AddCommand("clearBean", Cmd_ClearBean, CMD_FL_GAME, "Clear Beans");

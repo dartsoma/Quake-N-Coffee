@@ -359,6 +359,7 @@ COFFEE MOD
 	float drinkDebounce = 0.0f; // debounce timer for drinking coffee
 	bool midBlend = false; // is the player currently blending a drink?
 	int lastBeanPos = 0;
+	int nextBean;
 	// Effect Variables
 
 	/*

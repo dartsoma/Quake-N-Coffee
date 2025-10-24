@@ -1744,27 +1744,8 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 	int			g;
 
 	g = 3;
+	value = "ammo_machinegun";
 
-	switch (g) {
-		case 1:
-			value = "ammo_blaster";
-			break;
-		case 2:
-			value = "ammo_nailgun";
-			break;
-		case 3:
-			value = "ammo_machinegun";
-			break;
-		case 4:
-			value = "ammo_railgun";
-			break;
-		case 5:
-			value = "ammo_shotgun";
-			break;
-		default:
-			value = "ammo_blaster";
-			break;
-	}
 
 	if (attacker->IsType(idPlayer::GetClassType())) {
 		idPlayer* player = (idPlayer*)inflictor;
@@ -1792,7 +1773,10 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 				gameLocal.SpawnEntityDef(dict, &newEnt);
 			}
 		}
-	} 
+	}
+	else {
+		gameLocal.SpawnEntityDef(dict, &newEnt);
+	}
 
 
 	if (newEnt) {

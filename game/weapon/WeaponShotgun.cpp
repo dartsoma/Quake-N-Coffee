@@ -161,9 +161,17 @@ stateResult_t rvWeaponShotgun::State_Fire( const stateParms_t& parms ) {
 		STAGE_INIT,
 		STAGE_WAIT,
 	};	
+
+
 	switch ( parms.stage ) {
 		case STAGE_INIT:
 			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
+			
+			if (!(owner->caffeine <= 5)) {
+				Attack(false, 1, spread, 0, 1.0f);
+				owner->caffeine = idMath::ClampInt(5, owner->caffeine, owner->caffeine - 5);
+			}
+
 			Attack( false, hitscans, spread, 0, 1.0f );
 			PlayAnim( ANIMCHANNEL_ALL, "fire", 0 );	
 			return SRESULT_STAGE( STAGE_WAIT );

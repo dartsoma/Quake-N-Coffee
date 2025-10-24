@@ -250,6 +250,7 @@ void idPlayer::selectBeans() {
 
 		if (!midBlend) {
 			lastBeanPos = currBean - beInventory;
+			midBlend = true;
 		}
 		else {
 			beanPos = currBean - beInventory;
@@ -296,12 +297,14 @@ void  idPlayer::addBean(int type, int purity) {
 	}
 
 	int c; // Iterator 
-	for (c = 0; c < 3; c++) {
+	for (c = 0; c < 10; c++) {
 		if (beInventory[c].type == EMPTY) {
 			beInventory[c] = newBean;
 			return;
 		}
 	}
+
+	*currBean = newBean;
 
 	return;
 }
@@ -488,13 +491,18 @@ char* idPlayer::coffeeName() {
 
 void idPlayer::updateEffects() {
 	int i;	
-	int d;
+
 	
 	for (i = 0; i < EFFECTS; i++) {
-		if (effectTimer[i] > 30) {
-			effectTimer[i] = 0; // glitch fix
+
+		if(((effectTimer[i] - gameLocal.time)/1000) > 1000) {
+			effectTimer[i] = 0; // Permanent Effect
 		}
+
+
 		if (effectTimer[i] > 0 && effectTimer[i] < gameLocal.time) {
+
+
 
 			switch (i) {
 			case 0: // OverCaffeinated
@@ -597,6 +605,7 @@ void idPlayer::effectDoOnce(int effect) {
 	switch (effect) {
 	case 0: // OverCaffeinated
 
+		caffeine += 5.0f * premiumRate;
 		overCaffeinated = true;
 		setEffect(1, SEC2MS(10.0f*premiumRate));
 		return;
@@ -696,11 +705,14 @@ void idPlayer::clearEffects() {
 void idPlayer::toggleBrewGui() {
 	
 	if (!brewing) {
+		
 		brewing = true;
 
 	}
 	else {
-
+		if (midBlend) {
+			lastBeanPos = 0;
+		}
 		brewing = false;
 	}
 	return;
@@ -1360,7 +1372,7 @@ bool idInventory::Give( idPlayer *owner, const idDict &spawnArgs, const char *st
 		int g = rvRandom::irand(1, 5);
 		
 
-		switch (i) {
+		switch (g) {
 
 		case 1:
 			// basic bean
@@ -2376,6 +2388,8 @@ void idPlayer::Spawn( void ) {
 	
 	skin = renderEntity.customSkin;
 
+
+
 	// only the local player needs guis
 	// for server netdemos that have no local player, we use demo_* guis in idGameLocal
 	if ( !gameLocal.isMultiplayer || entityNumber == gameLocal.localClientNum ) {
@@ -2609,6 +2623,7 @@ void idPlayer::Spawn( void ) {
 	for(int d : effectTimer){		
 		d = 0;
 	}
+
 }
 
 /*
@@ -3961,7 +3976,7 @@ void idPlayer::UpdateHudStats( idUserInterface *_hud ) {
 	// if ((float) temp != idPlayer::caffeine || temp >= maxCaffeine || overCaffeinated) {
 	if (!psycho) {
 		_hud->SetStateString("coffeename", coffeeName());
-		_hud->SetStateFloat("player_caffeine", caffeine < -100 ? -100 : caffeine);
+		_hud->SetStateFloat("player_caffeine", caffeine < -100 ? -100 : idMath::ClampFloat(0, 100, caffeine));
 		_hud->SetStateFloat("player_overcaffeine", overCaffeination < -100 ? -100 : overCaffeination);
 		//_hud->SetStateFloat("player_caffpct", idMath::ClampFloat(0.0f, 1.0f, (float)caffeine / (float)maxCaffeine));
 	}
@@ -3983,6 +3998,9 @@ void idPlayer::UpdateHudStats( idUserInterface *_hud ) {
 		_hud->SetStateInt("dtimer4", (effectTimer[8] <= gameLocal.time ? 0 : (effectTimer[8] - gameLocal.time)/1000));
 		_hud->SetStateInt("dtimer5", (effectTimer[9] <= gameLocal.time ? 0 : (effectTimer[9] - gameLocal.time)/1000));
 		_hud->SetStateInt("dtimer6", (effectTimer[10] <= gameLocal.time ? 0 : (effectTimer[10] - gameLocal.time)/1000));
+
+
+
 
 		if (!brewing) {
 			_hud->SetStateBool("brewingopen", false);
@@ -9963,6 +9981,9 @@ void idPlayer::Think(void) {
 	} else {
 		ClearCheatState();
 	}
+
+
+	nextBean = rvRandom::irand(1, 5);
 
 	aasSensor->Update();
 
