@@ -610,6 +610,14 @@ void Cmd_CurrDrink(const idCmdArgs& args) {
 	gameLocal.Printf("Current Drink:\nBase: %s,\n Hybrid: %s,\n Purity: %d,\n Cups Left: %d\n\n", baseType, hybridType, purity, cupsLeft);
 }
 
+void Cmd_OpenBrewMenu(const idCmdArgs& args) {
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	if (!(player->psycho)) {
+	player->toggleBrewGui();
+	}
+}
+
 void Cmd_CurrBean(const idCmdArgs& args) {
 	idPlayer* player;
 	player = gameLocal.GetLocalPlayer();
@@ -3379,6 +3387,7 @@ void idGameLocal::InitConsoleCommands(void) {
 	cmdSystem->AddCommand("cleareff", Cmd_ClearFX, CMD_FL_GAME, "Clear Effects");
 	cmdSystem->AddCommand("drinkCup", Cmd_Drink, CMD_FL_GAME, "Drink Cup");
 	cmdSystem->AddCommand("seteff", Cmd_SetEffect, CMD_FL_GAME, "Set Effect");
+	cmdSystem->AddCommand("openBrew", Cmd_OpenBrewMenu, CMD_FL_GAME, "Open Brew Menu");
 }
 /*
 =================

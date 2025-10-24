@@ -2593,6 +2593,7 @@ void rvWeapon::Attack( bool altAttack, int num_attacks, float spread, float fuse
 	if ( !gameLocal.isClient ) {
 		idDict& dict = altAttack ? attackAltDict : attackDict;
 		power *= owner->PowerUpModifier( PMOD_PROJECTILE_DAMAGE );
+		power *= owner->damageMult;
 		if ( altAttack ? wfl.attackAltHitscan : wfl.attackHitscan ) {
 			Hitscan( dict, muzzleOrigin, muzzleAxis, num_attacks, spread, power );
 		} else {

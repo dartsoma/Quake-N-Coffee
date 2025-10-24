@@ -1743,7 +1743,7 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 	idDict		dict;
 	int			g;
 
-	g = rvRandom::irand(1,  5);
+	g = 3;
 
 	switch (g) {
 		case 1:
@@ -1766,6 +1766,9 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 			break;
 	}
 
+	if (attacker->IsType(idPlayer::GetClassType())) {
+		idPlayer* player = (idPlayer*)inflictor;
+	}
 
 	dict.Set("classname", value);
 	dict.Set("angle", va("%f", 180));
@@ -1775,7 +1778,22 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 
 	// kfuller: want to know the name of the Item I spawned
 	idEntity* newEnt = NULL;
-	gameLocal.SpawnEntityDef(dict, &newEnt);
+	
+	if (attacker->IsType(idPlayer::GetClassType())) {
+		idPlayer* player = (idPlayer*)inflictor;
+		if (player && player->doubleDrop) {
+			for (i = 0; i < 2; i++) {
+				gameLocal.SpawnEntityDef(dict, &newEnt);
+			}
+		}
+		else {
+			if (!(player->debuffed) ||
+				(rvRandom::irand(1,2) % 2 == 0)) {
+				gameLocal.SpawnEntityDef(dict, &newEnt);
+			}
+		}
+	} 
+
 
 	if (newEnt) {
 		gameLocal.Printf("%s dropped entity '%s'\n", name.c_str(), newEnt->name.c_str());

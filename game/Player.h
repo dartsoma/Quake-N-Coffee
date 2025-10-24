@@ -355,9 +355,10 @@ COFFEE MOD
 	float caffeine = 100.0f;
 	float overCaffeination = 0.0f;
 	float maxCaffeine = 100.0f;
-	float coffeeTimer = 0.05f; // general timer for coffee effects 
+	float coffeeTimer = 0.025f; // general timer for coffee effects 
 	float drinkDebounce = 0.0f; // debounce timer for drinking coffee
-
+	bool midBlend = false; // is the player currently blending a drink?
+	int lastBeanPos = 0;
 	// Effect Variables
 
 	/*
@@ -371,7 +372,11 @@ COFFEE MOD
 	int effectTimer[EFFECTS];
 	int16_t activeEffects;
 	bool overCaffeinated = false;
-
+	bool brewing = false;
+	bool psycho = false;
+	bool doubleDrop = true;
+	float damageMult = 1.0f; // damage multiplier
+	bool debuffed = false;
 
 	typedef enum {
 		EMPTY = -1,
@@ -400,13 +405,15 @@ COFFEE MOD
 	const int maxCups = 3;	
 	const bean nullBean = { EMPTY, 0 };
 	const brew emptyCup = { nullBean, nullBean };
+	brew lastDrank;
 
 	bean beInventory[10] = { nullBean, nullBean, nullBean, nullBean, nullBean, nullBean, nullBean, nullBean, nullBean, nullBean };
 	brew brInventory[3] = { emptyCup , emptyCup , emptyCup };
 
+	
 	// Const Functionality
 	brew* currDrink = brInventory;
-
+	bean* currBean = beInventory;
 
 	// Coffee Functionality
 	void drink();
@@ -420,6 +427,9 @@ COFFEE MOD
 	void nextCup();
 	void setCaffeine(int c);
 	char* coffeeName();
+	void toggleBrewGui();
+	void selectBeans();
+
 
 
 	// Duration Effects
